@@ -61,7 +61,6 @@ export const Form = ({ handleClick, handleSubmit, state, setState }) => {
 							The purchase receipt would be sent to this address
 						</p>
 						<input
-							required
 							value={email}
 							onChange={handleChange}
 							type="email"
