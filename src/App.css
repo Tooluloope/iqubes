@@ -167,3 +167,17 @@ nav {
   height: 1px;
   width: 100%;
 }
+
+.card-max {
+  max-width: 601px;
+  margin: 0 auto;
+}
+
+.card-max .content {
+  max-width: 330px;
+  margin: 0 auto;
+}
+
+.p-gradient {
+  color: #F2994A;
+}
