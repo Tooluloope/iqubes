@@ -1,6 +1,34 @@
 import React from "react";
+import { IMaskInput } from "react-imask";
+import spinner from "../assets/spinner.svg";
 
-export const Form = ({ handleClick, handleSubmit }) => {
+export const Form = ({ handleClick, handleSubmit, state, setState }) => {
+	const handleChange = e => {
+		const { formData } = state;
+		formData[e.target.name] = e.target.value;
+		setState({ ...state, formData });
+	};
+	const handleMaskChange = (value, mask) => {
+		const { formData } = state;
+		formData[mask.el.input.name] = value;
+		setState({ ...state, formData });
+	};
+	const {
+		formData: {
+			name,
+			email,
+			address1,
+			address2,
+			localGovernment,
+			stateForm,
+			nameOnCard,
+			cardType,
+			cardDetails,
+			expiryDate,
+			cvv,
+		},
+		isSubmitting,
+	} = state;
 	return (
 		<div className="relative h-auto">
 			<form onSubmit={handleSubmit}>
@@ -13,10 +41,12 @@ export const Form = ({ handleClick, handleSubmit }) => {
 							Name
 						</label>
 						<input
+							onChange={handleChange}
+							value={name}
 							type="text"
 							name="name"
-							placeholder="Opara Linus Ahmed"
-							className="w-full border bg-main-border py-4 bg-white text-black placeholder-black rounded-md focus:outline-none px-3"
+							placeholder="Enter your name"
+							className="w-full border bg-main-border py-4 bg-white text-black placeholder-gray-600 rounded-md focus:outline-none px-3"
 						/>
 					</div>
 
@@ -31,10 +61,13 @@ export const Form = ({ handleClick, handleSubmit }) => {
 							The purchase receipt would be sent to this address
 						</p>
 						<input
-							type="text"
+							required
+							value={email}
+							onChange={handleChange}
+							type="email"
 							name="email"
-							placeholder="OparaLinusAhmed@devmail.com"
-							className="w-full border bg-main-border py-4 bg-white text-black placeholder-black rounded-md focus:outline-none px-3"
+							placeholder="Email Address"
+							className="w-full border bg-main-border py-4 bg-white text-black placeholder-gray-600 rounded-md focus:outline-none px-3"
 						/>
 					</div>
 
@@ -47,10 +80,12 @@ export const Form = ({ handleClick, handleSubmit }) => {
 						</label>
 
 						<input
+							value={address1}
+							onChange={handleChange}
 							type="text"
 							name="address1"
-							placeholder="The address of the user goes here"
-							className="w-full border bg-main-border py-4 bg-white text-black placeholder-black rounded-md focus:outline-none px-3"
+							placeholder="Address 1"
+							className="w-full border bg-main-border py-4 bg-white text-black placeholder-gray-600 rounded-md focus:outline-none px-3"
 						/>
 					</div>
 
@@ -63,10 +98,12 @@ export const Form = ({ handleClick, handleSubmit }) => {
 						</label>
 
 						<input
+							value={address2}
+							onChange={handleChange}
 							type="text"
 							name="address2"
-							placeholder="and here"
-							className="w-full border bg-main-border py-4 bg-white text-black placeholder-black rounded-md focus:outline-none px-3"
+							placeholder="Address 2"
+							className="w-full border bg-main-border py-4 bg-white text-black placeholder-gray-600 rounded-md focus:outline-none px-3"
 						/>
 					</div>
 
@@ -80,27 +117,32 @@ export const Form = ({ handleClick, handleSubmit }) => {
 							</label>
 
 							<input
+								value={localGovernment}
+								onChange={handleChange}
 								type="text"
 								name="localGovernment"
-								placeholder="Surulere"
-								className="w-full border bg-main-border py-4 bg-white text-black placeholder-black rounded-md focus:outline-none px-3"
+								placeholder="Local Government"
+								className="w-full border bg-main-border py-4 bg-white text-black placeholder-gray-600 rounded-md focus:outline-none px-3"
 							/>
 						</div>
 
 						<div className="w-full md:w-1/3  md:ml-4 md:mt-0 mt-10">
 							<label
-								htmlFor="localGovernment"
+								htmlFor="stateForm"
 								className="block mb-3 text-black md:text-xl font-bold"
 							>
 								State
 							</label>
 							<div className="inline-block relative bg-transparent w-full select-wrapper">
 								<select
+									value={stateForm}
+									onChange={handleChange}
 									type="text"
-									name="state"
-									className="w-full border bg-main-border py-4 bg-white text-black placeholder-black rounded-md focus:outline-none px-3"
+									name="stateForm"
+									className="w-full border bg-main-border py-4 bg-white text-black placeholder-gray-600 rounded-md focus:outline-none px-3"
 								>
 									<option value="lagos">Lagos</option>
+									<option value="ibadan">Ibadan</option>
 								</select>
 							</div>
 						</div>
@@ -126,22 +168,24 @@ export const Form = ({ handleClick, handleSubmit }) => {
 				<div className="multi-form" data-animation="scaleIn">
 					<div className="w-full my-10">
 						<label
-							htmlFor="name"
+							htmlFor="nameOnCard"
 							className="block mb-3 text-black md:text-xl font-semibold"
 						>
 							Name on Card <span className="text-red-600">*</span>
 						</label>
 						<input
+							value={nameOnCard}
+							onChange={handleChange}
 							type="text"
-							name="name"
-							placeholder="Opara Linus Ahmed"
-							className="w-full border bg-main-border py-4 bg-white text-black placeholder-black rounded-md focus:outline-none px-3"
+							name="nameOnCard"
+							placeholder="Card Name"
+							className="w-full border bg-main-border py-4 bg-white text-black placeholder-gray-600 rounded-md focus:outline-none px-3"
 						/>
 					</div>
 
 					<div className="w-full my-10">
 						<label
-							htmlFor="email"
+							htmlFor="cardType"
 							className="block mb-3 text-black md:text-xl font-semibold"
 						>
 							Card Type <span className="text-red-600">*</span>
@@ -149,11 +193,14 @@ export const Form = ({ handleClick, handleSubmit }) => {
 
 						<div className="inline-block relative bg-transparent w-full select-wrapper">
 							<select
+								value={cardType}
+								onChange={handleChange}
 								type="text"
-								name="state"
-								className="w-full border bg-main-border py-4 bg-white text-black placeholder-black rounded-md focus:outline-none px-3"
+								name="cardType"
+								className="w-full border bg-main-border py-4 bg-white text-black placeholder-gray-600 rounded-md focus:outline-none px-3"
 							>
-								<option value="lagos">Visa</option>
+								<option value="visa">Visa</option>
+								<option value="masterCard">Master Card</option>
 							</select>
 						</div>
 					</div>
@@ -161,46 +208,77 @@ export const Form = ({ handleClick, handleSubmit }) => {
 					<div className="md:flex justify-between items-start my-10">
 						<div className="w-full md:w-1/2  md:mr-4">
 							<label
-								htmlFor="localGovernment"
+								htmlFor="cardDetails"
 								className="block mb-3 text-black md:text-xl font-semibold"
 							>
 								Card Details <span className="text-red-600">*</span>
 							</label>
 
-							<input
-								type="text"
-								name="localGovernment"
-								placeholder="Surulere"
-								className="w-full border bg-main-border py-4 bg-white text-black placeholder-black rounded-md focus:outline-none px-3"
+							<IMaskInput
+								mask="0000   0000   0000   0000"
+								radix="."
+								value={cardDetails}
+								unmask={true}
+								onAccept={
+									// depending on prop above first argument is
+									// `value` if `unmask=false`,
+									// `unmaskedValue` if `unmask=true`,
+									// `typedValue` if `unmask='typed'`
+
+									(value, mask) => handleMaskChange(value, mask)
+								}
+								name="cardDetails"
+								placeholder="XXXX   XXXX   XXXX   XXXX"
+								className="w-full border bg-main-border py-4 bg-white text-black placeholder-gray-600 rounded-md focus:outline-none px-3"
 							/>
 						</div>
 						<div className="flex w-full md:w-1/2">
 							<div className="  w-1/2  md:ml-4 md:mt-0 mt-10 md:mr-0 mr-4">
 								<label
-									htmlFor="localGovernment"
+									htmlFor="expiryDate"
 									className="block mb-3 text-black md:text-xl font-bold"
 								>
 									Expiry Date <span className="text-red-600">*</span>
 								</label>
-								<input
-									type="text"
-									name="localGovernment"
-									placeholder="Surulere"
-									className="w-full border bg-main-border py-4 bg-white text-black placeholder-black rounded-md focus:outline-none px-3"
+								<IMaskInput
+									mask="00  /  00"
+									radix="."
+									value={expiryDate}
+									unmask={true}
+									onAccept={
+										// depending on prop above first argument is
+										// `value` if `unmask=false`,
+										// `unmaskedValue` if `unmask=true`,
+										// `typedValue` if `unmask='typed'`
+										(value, mask) => handleMaskChange(value, mask)
+									}
+									name="expiryDate"
+									placeholder="20  /  20"
+									className="w-full border bg-main-border py-4 bg-white text-black placeholder-gray-600 rounded-md focus:outline-none px-3 text-center"
 								/>
 							</div>
 							<div className="  w-1/2  md:ml-4 md:mt-0 mt-10 md:mr-0 mr-4">
 								<label
-									htmlFor="localGovernment"
+									htmlFor="cvv"
 									className="block mb-3 text-black md:text-xl font-bold"
 								>
 									CVV <span className="text-red-600">*</span>
 								</label>
-								<input
-									type="text"
-									name="localGovernment"
-									placeholder="Surulere"
-									className="w-full border bg-main-border py-4 bg-white text-black placeholder-black rounded-md focus:outline-none px-3"
+								<IMaskInput
+									mask="000"
+									radix="."
+									value={cvv}
+									unmask={true}
+									onAccept={
+										// depending on prop above first argument is
+										// `value` if `unmask=false`,
+										// `unmaskedValue` if `unmask=true`,
+										// `typedValue` if `unmask='typed'`
+										(value, mask) => handleMaskChange(value, mask)
+									}
+									name="cvv"
+									placeholder="123"
+									className="w-full border bg-main-border py-4 bg-white text-black placeholder-gray-600 rounded-md focus:outline-none px-3 text-center"
 								/>
 							</div>
 						</div>
@@ -253,7 +331,7 @@ export const Form = ({ handleClick, handleSubmit }) => {
 							type="submit"
 							className="bg-gradient-color button md:w-64 w-full my-3 md:my-0 rounded focus:outline-none text-white md:mr-10 font-bold"
 						>
-							Pay
+							Pay {isSubmitting && <img src={spinner} alt="spinner" />}
 						</button>
 
 						<button

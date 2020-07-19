@@ -18,7 +18,7 @@ function App() {
 			address1: "",
 			address2: "",
 			localGovernment: "",
-			state: "",
+			stateForm: "",
 			nameOnCard: "",
 			cardType: "",
 			cardDetails: "",
@@ -26,7 +26,7 @@ function App() {
 			cvv: "",
 		},
 		isSubmitting: false,
-		submitted: true,
+		submitted: false,
 	};
 	const [state, setState] = useState(initialState);
 
@@ -43,8 +43,11 @@ function App() {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		ref.current.active = 0;
-		setState({ ...initialState, submitted: true });
+		setState({ ...state, isSubmitting: true });
+		setTimeout(() => {
+			ref.current.active = 0;
+			setState({ ...initialState, submitted: true });
+		}, 1000);
 	};
 
 	const handleClick = () => {
@@ -85,7 +88,12 @@ function App() {
 
 					<Nav handleClickTab={handleClickTab} />
 
-					<Form handleClick={handleClick} handleSubmit={handleSubmit} />
+					<Form
+						state={state}
+						setState={setState}
+						handleClick={handleClick}
+						handleSubmit={handleSubmit}
+					/>
 				</div>
 			)}
 		</div>
