@@ -1,6 +1,5 @@
 import React from "react";
 import { IMaskInput } from "react-imask";
-import spinner from "../assets/spinner.svg";
 
 export const Form = ({ handleClick, handleSubmit, state, setState }) => {
 	const handleChange = e => {
@@ -8,6 +7,8 @@ export const Form = ({ handleClick, handleSubmit, state, setState }) => {
 		formData[e.target.name] = e.target.value;
 		setState({ ...state, formData });
 	};
+
+	// Handle change for masked Inputs
 	const handleMaskChange = (value, mask) => {
 		const { formData } = state;
 		formData[mask.el.input.name] = value;
@@ -218,14 +219,7 @@ export const Form = ({ handleClick, handleSubmit, state, setState }) => {
 								radix="."
 								value={cardDetails}
 								unmask={true}
-								onAccept={
-									// depending on prop above first argument is
-									// `value` if `unmask=false`,
-									// `unmaskedValue` if `unmask=true`,
-									// `typedValue` if `unmask='typed'`
-
-									(value, mask) => handleMaskChange(value, mask)
-								}
+								onAccept={(value, mask) => handleMaskChange(value, mask)}
 								name="cardDetails"
 								placeholder="XXXX   XXXX   XXXX   XXXX"
 								className="w-full border bg-main-border py-4 bg-white text-black placeholder-gray-600 rounded-md focus:outline-none px-3"
@@ -244,13 +238,7 @@ export const Form = ({ handleClick, handleSubmit, state, setState }) => {
 									radix="."
 									value={expiryDate}
 									unmask={true}
-									onAccept={
-										// depending on prop above first argument is
-										// `value` if `unmask=false`,
-										// `unmaskedValue` if `unmask=true`,
-										// `typedValue` if `unmask='typed'`
-										(value, mask) => handleMaskChange(value, mask)
-									}
+									onAccept={(value, mask) => handleMaskChange(value, mask)}
 									name="expiryDate"
 									placeholder="20  /  20"
 									className="w-full border bg-main-border py-4 bg-white text-black placeholder-gray-600 rounded-md focus:outline-none px-3 text-center"
@@ -268,13 +256,7 @@ export const Form = ({ handleClick, handleSubmit, state, setState }) => {
 									radix="."
 									value={cvv}
 									unmask={true}
-									onAccept={
-										// depending on prop above first argument is
-										// `value` if `unmask=false`,
-										// `unmaskedValue` if `unmask=true`,
-										// `typedValue` if `unmask='typed'`
-										(value, mask) => handleMaskChange(value, mask)
-									}
+									onAccept={(value, mask) => handleMaskChange(value, mask)}
 									name="cvv"
 									placeholder="123"
 									className="w-full border bg-main-border py-4 bg-white text-black placeholder-gray-600 rounded-md focus:outline-none px-3 text-center"
