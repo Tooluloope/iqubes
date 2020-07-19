@@ -5,12 +5,20 @@
   left: 0;
   right: 0;
   top: 0;
-  bottom: 40.91%;
+  bottom: 30.91%;
+  background-position: center;
+  background-size: cover;
   transform: skewY(-20deg);
   transform-origin: top left;
   background: linear-gradient(180deg,
       rgba(242, 201, 76, 0.2) 0%,
       rgba(242, 153, 74, 0.2) 100%);
+}
+
+@media (min-width: 1900px) {
+  .background-slant {
+    bottom: 10.91%;
+  }
 }
 
 .text-main-color {
@@ -91,6 +99,7 @@ nav {
   /* IE and Edge */
   scrollbar-width: none;
   /* Firefox */
+  -webkit-overflow-scrolling: touch
 }
 
 .active-nav::after {
@@ -115,4 +124,46 @@ nav {
 
 .active-nav.show {
   color: #f2994a;
+}
+
+.multi-form {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+  margin-bottom: 60px;
+}
+
+.multi-form.active {
+  height: auto;
+  opacity: 1;
+  visibility: visible;
+}
+
+.multi-form[data-animation="scaleIn"] {
+  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
+}
+
+.multi-form[data-animation="scaleIn"].active {
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  transition-delay: 0s;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+.card-header {
+  background: #2F80ED;
+  height: 70px;
+}
+
+.card-body::after {
+  background-color: #817E9E;
+  height: 1px;
+  width: 100%;
 }
