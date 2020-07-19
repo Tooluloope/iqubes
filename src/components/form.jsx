@@ -331,7 +331,7 @@ export const Form = ({ handleClick, handleSubmit, state, setState }) => {
 							type="submit"
 							className="bg-gradient-color button md:w-64 w-full my-3 md:my-0 rounded focus:outline-none text-white md:mr-10 font-bold"
 						>
-							Pay {isSubmitting && <img src={spinner} alt="spinner" />}
+							Pay {isSubmitting && <i className="fas fa-spinner"></i>}
 						</button>
 
 						<button
